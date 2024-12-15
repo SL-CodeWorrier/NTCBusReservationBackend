@@ -7,7 +7,7 @@ const {
     deleteBusOperatorById,
     getBusOperatorByPhoneNumber,
     getBusOperatorByUserId,
-} = require('../Services/busOperatorService'); // Adjust path as needed
+} = require('../Repositories/busOperatorRepository'); // Adjust path as needed
 
 const create = async (req, res) => {
     try {

@@ -14,7 +14,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/v1/lk/commuters/create:
+ * /api/v1/lk/commuter/create:
  *   post:
  *     summary: Create a new commuter
  *     description: Create a new commuter with the provided data.
@@ -53,7 +53,7 @@ router.post('/create', createCommuter);
 
 /**
  * @swagger
- * /api/v1/lk/commuters:
+ * /api/v1/lk/commuter:
  *   get:
  *     summary: Get all commuters
  *     description: Retrieve a list of all commuters.
@@ -67,7 +67,7 @@ router.get('/', getAllCommuters);
 
 /**
  * @swagger
- * /api/v1/lk/commuters/{id}:
+ * /api/v1/lk/commuter/{id}:
  *   get:
  *     summary: Get a commuter by ID
  *     description: Retrieve a commuter's details by their ID.
@@ -88,7 +88,7 @@ router.get('/:id', getCommuterById);
 
 /**
  * @swagger
- * /api/v1/lk/commuters/{id}:
+ * /api/v1/lk/commuter/{id}:
  *   put:
  *     summary: Update a commuter by ID
  *     description: Update a commuter's information by their ID.
@@ -132,7 +132,7 @@ router.put('/:id', updateCommuterById);
 
 /**
  * @swagger
- * /api/v1/lk/commuters/{id}:
+ * /api/v1/lk/commuter/{id}:
  *   delete:
  *     summary: Delete a commuter by ID
  *     description: Delete a commuter from the database by their ID.
@@ -153,7 +153,7 @@ router.delete('/:id', deleteCommuterById);
 
 /**
  * @swagger
- * /api/v1/lk/commuters/province/{province}:
+ * /api/v1/lk/commuter/province/{province}:
  *   get:
  *     summary: Get commuters by province
  *     description: Retrieve a list of commuters in a specific province.
@@ -172,7 +172,7 @@ router.get('/province/:province', getCommutersByProvince);
 
 /**
  * @swagger
- * /api/v1/lk/commuters/city/{city}:
+ * /api/v1/lk/commuter/city/{city}:
  *   get:
  *     summary: Get commuters by city
  *     description: Retrieve a list of commuters in a specific city.
@@ -191,7 +191,7 @@ router.get('/city/:city', getCommutersByCity);
 
 /**
  * @swagger
- * /api/v1/lk/commuters/credential/{credential}:
+ * /api/v1/lk/commuter/credential/{credential}:
  *   get:
  *     summary: Get commuter by phone number or email
  *     description: Retrieve a commuter's details by their phone number or email.
