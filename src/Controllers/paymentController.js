@@ -40,9 +40,9 @@ const createPayment = async (req, res) => {
         // Send SMS
         client.messages
           .create({
-            body: 'This is a notification message!', // Customize the message
-            from: '+1234567890', // Your Twilio number
-            to: phoneNumber,   // Recipient's number (user's phone number)
+            body: `Your reservation is complete! Amount for one seat ${amountForOneSeat} x number of seats ${numberOfSeats} = total amount ${totalAmount}`,
+            from: '+1234567890',
+            to: phoneNumber,
           })
           .then((message) => {
             console.log('Message sent:', message.sid);
