@@ -99,16 +99,16 @@ const resetPassword = async ({ token, newPassword }) => {
         const user = await User.findById(decoded.id);
 
         if (!user) {
-            return { success: false, message: "Invalid or expired token!", data: token };
+            return { success: false, message: "Invalid or expired token!", data: false };
         }
 
         user.password = await bcrypt.hash(newPassword, 10);
         await user.save();
 
-        return { success: true, message: "Password reset successfully!" };
+        return { success: true, message: "Password reset successfully!", data: true};
     } catch (error) {
         console.error("Error during password reset:", error.message);  // improved error logging
-        return { success: false, message: ⁠ Password reset failed: ${error.message} ⁠, data: token }; // detailed message
+        return { success: false, message: "Password reset failed!", data: false };
     }
 };
 
