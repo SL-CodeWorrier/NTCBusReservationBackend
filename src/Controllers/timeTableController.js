@@ -29,7 +29,5 @@ const getTimetablesByBusId = async (req, res) => {
     }
 };
 
-// Define route for fetching timetables by Bus ID
-router.get("/bus/:busId", getTimetablesByBusId);
 
 module.exports = router;
