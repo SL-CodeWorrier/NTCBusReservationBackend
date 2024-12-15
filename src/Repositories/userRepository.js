@@ -51,5 +51,99 @@ const loginUser = async ({ credential, password }) => {
     }
 };
 
+const verifyByPhoneNumber = async (phonenumber) => {
+    try {
+        const user = await User.findOne({ phonenumber });
 
-module.exports = { registerUser, loginUser };
+        if (!user) {
+            return { success: false, message: "User not found!", data: phonenumber };
+        }
+
+        user.isVerified = true;
+        await user.save();
+
+        return { success: true, message: "User verified successfully!", data: phonenumber };
+    } catch (error) {
+        console.error("Error during user verification:", error);
+        return { success: false, message: "User verification failed!", data: phonenumber };
+    }
+};
+
+const forgotPassword = async (phonenumber) => {
+    try {
+        const user = await User.findOne({ phonenumber });
+
+        if (!user) {
+            return { success: false, message: "User not found!", data: phonenumber };
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECURITY, { expiresIn: "15m" });
+
+        // TODO: Send token to user via SMS or email (depends on your implementation).
+
+        return { success: true, message: "Password reset token generated!", data: token };
+    } catch (error) {
+        console.error("Error during forgot password:", error);
+        return { success: false, message: "Password reset process failed!", data: phonenumber };
+    }
+};
+
+const resetPassword = async ({ token, newPassword }) => {
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECURITY);
+
+        const user = await User.findById(decoded.id);
+
+        if (!user) {
+            return { success: false, message: "Invalid or expired token!", data: token };
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+
+        return { success: true, message: "Password reset successfully!" };
+    } catch (error) {
+        console.error("Error during password reset:", error);
+        return { success: false, message: "Password reset failed!", data: token };
+    }
+};
+
+const updateUser = async ({ id, updates }) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true });
+
+        if (!updatedUser) {
+            return { success: false, message: "User not found!", data: id };
+        }
+
+        return { success: true, message: "User updated successfully!", data: updatedUser };
+    } catch (error) {
+        console.error("Error during user update:", error);
+        return { success: false, message: "User update failed!", data: id };
+    }
+};
+
+const deleteUser = async (id) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(id);
+
+        if (!deletedUser) {
+            return { success: false, message: "User not found!", data: id };
+        }
+
+        return { success: true, message: "User deleted successfully!", data: id };
+    } catch (error) {
+        console.error("Error during user deletion:", error);
+        return { success: false, message: "User deletion failed!", data: id };
+    }
+};
+
+module.exports = {
+    registerUser,
+    loginUser,
+    verifyByPhoneNumber,
+    forgotPassword,
+    resetPassword,
+    updateUser,
+    deleteUser,
+};
