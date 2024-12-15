@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const { type } = require("os");
 
 const commuterSchema = new mongoose.Schema({
+    email: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     addressNo: { type: String, required: true },
