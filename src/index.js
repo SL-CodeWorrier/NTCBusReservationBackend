@@ -3,7 +3,7 @@ const dotenv = require("dotenv").config();
 const dbConnect = require("./config/applicationDbContext");
 const authRoutes = require("./Routes/authRoute");
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocs = require('./swagger'); // Import the Swagger configuration
+const swaggerDocs = require('./swagger'); // Import Swagger configuration
 
 dbConnect();
 

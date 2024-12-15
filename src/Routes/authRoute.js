@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login } = require('../Controllers/authController');
+const { register, login, verify, forgot, reset, update, remove } = require('../Controllers/authController');
 
 const router = express.Router();
 
@@ -180,3 +180,5 @@ router.put("/update/:id", update);
  *         description: User not found
  */
 router.delete("/delete/:id", remove);
+
+module.exports = router;
