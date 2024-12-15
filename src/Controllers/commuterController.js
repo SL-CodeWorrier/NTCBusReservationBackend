@@ -8,7 +8,7 @@ const {
     getCommutersByProvince,
     getCommutersByCity,
     getCommuterByPhoneNumberOrEmail,
-} = require('../Services/commuterService');
+} = require('../Repositories/commuterRepository');
 
 const create = async (req, res) => {
     try {
@@ -115,12 +115,12 @@ const getByPhoneNumberOrEmail = async (req, res) => {
 };
 
 module.exports = {
-    create,
-    getAll,
-    getById,
-    updateById,
-    deleteById,
-    getByProvince,
-    getByCity,
-    getByPhoneNumberOrEmail,
+    createCommuter,
+    getAllCommuters,
+    getCommuterById,
+    updateCommuterById,
+    deleteCommuterById,
+    getCommutersByProvince,
+    getCommutersByCity,
+    getCommuterByPhoneNumberOrEmail,
 };
