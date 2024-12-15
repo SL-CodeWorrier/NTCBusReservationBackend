@@ -40,9 +40,9 @@ const loginUser = async ({ credential, password }) => {
         if (isPasswordMatch) {
             const token = jwt.sign({ id: user._id, credential: user.phonenumber, role: user.role},
                 process.env.JWT_SECURITY, {expiresIn: "1h"});
-            return { success: false, message: 'User logged in successfully!', data: token };
+            return { success: true, message: 'User logged in successfully!', data: token };
         }else{
-            return { success: true, message: 'Invalid password!', data: credential };
+            return { success: false, message: 'Invalid password!', data: credential };
         }
 
     } catch (error) {
@@ -57,6 +57,10 @@ const verifyByPhoneNumber = async (phonenumber) => {
 
         if (!user) {
             return { success: false, message: "User not found!", data: phonenumber };
+        }
+
+        if (user.isVerified) {
+            return { success: false, message: "User already verified!", data: phonenumber };
         }
 
         user.isVerified = true;
@@ -103,8 +107,8 @@ const resetPassword = async ({ token, newPassword }) => {
 
         return { success: true, message: "Password reset successfully!" };
     } catch (error) {
-        console.error("Error during password reset:", error);
-        return { success: false, message: "Password reset failed!", data: token };
+        console.error("Error during password reset:", error.message);  // improved error logging
+        return { success: false, message: ⁠ Password reset failed: ${error.message} ⁠, data: token }; // detailed message
     }
 };
 
