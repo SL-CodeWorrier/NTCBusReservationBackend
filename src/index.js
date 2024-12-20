@@ -11,6 +11,7 @@ const busRoutes = require('./Routes/busRoute');
 const permitRoutes = require('./Routes/permitRoute');
 const timeTableRoutes = require('./Routes/timeTableRoute');
 const seatRoutes = require('./Routes/seatRoute');
+const paymentRoutes = require('./Routes/paymentRoute');
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./swagger'); // Import Swagger configuration
@@ -34,6 +35,7 @@ app.use("/api/v1/lk/permits", permitRoutes);
 app.use("/api/v1/lk/time-table", timeTableRoutes);
 app.use("/api/v1/lk/seat", seatRoutes);
 app.use("/api/v1/lk/reservation", seatRoutes);
+app.use("/api/v1/lk/payment", paymentRoutes);
 
 const PORT = process.env.PORT || 7002;
 

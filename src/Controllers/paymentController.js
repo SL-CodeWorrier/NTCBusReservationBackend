@@ -4,7 +4,7 @@ const twilio = require("twilio");
 
 // Create a new payment
 // Create a new payment
-const createPayment = async (req, res) => {
+const createUpdatePayment = async (req, res) => {
     try {
         const { paidDateTime, reservationId, amountForOneSeat, numberOfSeats, commuter } = req.body;
 
@@ -31,7 +31,21 @@ const createPayment = async (req, res) => {
 
         const phoneNumber = userDoc.phonenumber;
 
-        // Twilio credentials
+        // Create a new payment document
+        const payment = new Payment({
+            paidDateTime,
+            reservationId,
+            amountForOneSeat,
+            numberOfSeats,
+            totalAmount,
+            commuter,
+        });
+
+        const result = await payment.save();
+
+        if(result)
+        {
+            // Twilio credentials
         const accountSid = 'your_account_sid';
         const authToken = 'your_auth_token';
 
@@ -51,17 +65,7 @@ const createPayment = async (req, res) => {
             console.error('Error sending SMS:', error);
           });
 
-        // Create a new payment document
-        const payment = new Payment({
-            paidDateTime,
-            reservationId,
-            amountForOneSeat,
-            numberOfSeats,
-            totalAmount,
-            commuter,
-        });
-
-        const result = await payment.save();
+        }
 
         return res.status(201).json({
             success: true,
@@ -159,7 +163,7 @@ const getPaymentsByCommuterId = async (req, res) => {
 
 // Exporting the functions
 module.exports = {
-    createPayment,
+    createUpdatePayment,
     deletePaymentsByCommuterId,
     getPaymentsByReservationId,
     getPaymentsByCommuterId,
