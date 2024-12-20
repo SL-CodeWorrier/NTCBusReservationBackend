@@ -14,10 +14,11 @@ const {
  *   description: Payment management API
  */
 
+
 /**
  * @swagger
  * /api/v1/lk/payment:
- *   post:
+ *   patch:
  *     summary: Create or update a payment
  *     tags: [Payment]
  *     requestBody:
@@ -45,13 +46,13 @@ const {
  *                 example: 647acbd5f99b70f34e12f123
  *     responses:
  *       201:
- *         description: Payment created successfully.
+ *         description: Payment created or updated successfully.
  *       400:
  *         description: Bad request.
  *       500:
  *         description: Internal server error.
  */
-router.post("/", createUpdatePayment);
+router.patch("/", createUpdatePayment);
 
 /**
  * @swagger
