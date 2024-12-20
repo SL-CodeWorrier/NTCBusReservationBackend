@@ -41,7 +41,7 @@ const createPayment = async (req, res) => {
 
         const result = await payment.save();
 
-        if(result)
+        if(result && reservationId !== null && reservationId !== undefined)
         {
             // Twilio credentials
             const accountSid = 'your_account_sid';
@@ -193,6 +193,32 @@ const addReservationId = async (req, res) => {
             { reservationId },
             { new: true, runValidators: true }
         );
+
+        if(updatedPayment)
+            {
+                // Twilio credentials
+                const accountSid = 'your_account_sid';
+                const authToken = 'your_auth_token';
+    
+                const client = twilio(accountSid, authToken);
+
+                const payment = await Payment.findById(paymentId);
+    
+                // Send SMS
+                client.messages
+                .create({
+                    body: `Your reservation is complete! Amount for one seat ${payment.amountForOneSeat} x number of seats ${payment.numberOfSeats} = total amount ${payment.totalAmount}`,
+                    from: '+1234567890',
+                    to: phoneNumber,
+                })
+                .then((message) => {
+                    console.log('Message sent:', message.sid);
+                })
+                .catch((error) => {
+                    console.error('Error sending SMS:', error);
+                });
+    
+            }
 
         if (!updatedPayment) {
             return res.status(404).json({
