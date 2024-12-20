@@ -183,10 +183,42 @@ const getPaymentsByCommuterId = async (req, res) => {
     }
 };
 
-// Exporting the functions
+const addReservationId = async (req, res) => {
+    const { paymentId } = req.params;
+    const { reservationId } = req.body;
+
+    try {
+        const updatedPayment = await Payment.findByIdAndUpdate(
+            paymentId,
+            { reservationId },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedPayment) {
+            return res.status(404).json({
+                success: false,
+                message: "Payment not found for the given payment ID.",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Reservation ID added to the payment successfully.",
+            data: updatedPayment,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: `An error occurred: ${error.message}`,
+        });
+    }
+};
+
+// Exporting the updated functions
 module.exports = {
     createPayment,
     deletePaymentsByCommuterId,
     getPaymentsByReservationId,
     getPaymentsByCommuterId,
+    addReservationId,
 };

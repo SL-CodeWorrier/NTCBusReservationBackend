@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
     createPayment,
+    addReservationId,
     deletePaymentsByCommuterId,
     getPaymentsByReservationId,
     getPaymentsByCommuterId,
@@ -121,5 +122,38 @@ router.get("/reservation/:reservationId", getPaymentsByReservationId);
  *         description: Internal server error.
  */
 router.get("/commuter/:commuterId", getPaymentsByCommuterId);
+
+/**
+ * @swagger
+ * /api/v1/lk/payment/{paymentId}/reservation:
+ *   patch:
+ *     summary: Add or update a reservation ID for a payment
+ *     tags: [Payment]
+ *     parameters:
+ *       - in: path
+ *         name: paymentId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the payment
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               reservationId:
+ *                 type: string
+ *                 example: 647acbd5f99b70f34e12f678
+ *     responses:
+ *       200:
+ *         description: Reservation ID added successfully.
+ *       404:
+ *         description: Payment not found.
+ *       500:
+ *         description: Internal server error.
+ */
+router.patch("/:paymentId/reservation", addReservationId);
 
 module.exports = router;
