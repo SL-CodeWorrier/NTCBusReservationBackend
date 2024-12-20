@@ -77,7 +77,7 @@ const deleteById = async (req, res) => {
     }
 };
 
-const getByBusNumber = async (req, res) => {
+const getBusByBusNumber = async (req, res) => {
     try {
         const result = await getByBusNumber(req.query.busRegNumber);
         return res.status(result.success ? 200 : 404).json(result);
@@ -90,7 +90,7 @@ const getByBusNumber = async (req, res) => {
     }
 };
 
-const getByAvailability = async (req, res) => {
+const getBusByAvailability = async (req, res) => {
     try {
         const result = await getByAvailability(req.query.isAvailable);
         return res.status(result.success ? 200 : 404).json(result);
@@ -103,7 +103,7 @@ const getByAvailability = async (req, res) => {
     }
 };
 
-const getByCTBorPrivate = async (req, res) => {
+const getBusByCTBorPrivate = async (req, res) => {
     try {
         const result = await getByCTBorPrivate(req.query.isCTBorPrivate);
         return res.status(result.success ? 200 : 404).json(result);
@@ -116,7 +116,7 @@ const getByCTBorPrivate = async (req, res) => {
     }
 };
 
-const getByValidate = async (req, res) => {
+const getBusByValidate = async (req, res) => {
     try {
         const result = await getByValidate(req.query.isValidated);
         return res.status(result.success ? 200 : 404).json(result);
@@ -129,7 +129,7 @@ const getByValidate = async (req, res) => {
     }
 };
 
-const getByBusOperatorId = async (req, res) => {
+const getBusByBusOperatorId = async (req, res) => {
     try {
         const result = await getByBusOperatorId(req.params.busOperatorId);
         return res.status(result.success ? 200 : 404).json(result);
@@ -142,7 +142,7 @@ const getByBusOperatorId = async (req, res) => {
     }
 };
 
-const getByRouteId = async (req, res) => {
+const getBusByRouteId = async (req, res) => {
     try {
         const result = await getByRouteId(req.params.routeId);
         return res.status(result.success ? 200 : 404).json(result);
@@ -161,10 +161,10 @@ module.exports = {
     getById,
     updateById,
     deleteById,
-    getByBusNumber,
-    getByAvailability,
-    getByCTBorPrivate,
-    getByValidate,
-    getByBusOperatorId,
-    getByRouteId,
+    getBusByBusNumber,
+    getBusByAvailability,
+    getBusByCTBorPrivate,
+    getBusByValidate,
+    getBusByBusOperatorId,
+    getBusByRouteId,
 };
