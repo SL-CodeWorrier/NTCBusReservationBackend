@@ -2,9 +2,7 @@
 const Payment = require("../Models/payment");
 const twilio = require("twilio");
 
-// Create a new payment
-// Create a new payment
-const createUpdatePayment = async (req, res) => {
+const createPayment = async (req, res) => {
     try {
         const { paidDateTime, reservationId, amountForOneSeat, numberOfSeats, commuter } = req.body;
 
@@ -187,7 +185,7 @@ const getPaymentsByCommuterId = async (req, res) => {
 
 // Exporting the functions
 module.exports = {
-    createUpdatePayment,
+    createPayment,
     deletePaymentsByCommuterId,
     getPaymentsByReservationId,
     getPaymentsByCommuterId,

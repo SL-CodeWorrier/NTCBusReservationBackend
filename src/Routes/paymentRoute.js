@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
-    createUpdatePayment,
+    createPayment,
     deletePaymentsByCommuterId,
     getPaymentsByReservationId,
     getPaymentsByCommuterId,
@@ -17,8 +17,8 @@ const {
 /**
  * @swagger
  * /api/v1/lk/payment:
- *   patch:
- *     summary: Create or update a payment
+ *   post:
+ *     summary: Create a payment
  *     tags: [Payment]
  *     requestBody:
  *       required: true
@@ -45,13 +45,13 @@ const {
  *                 example: 647acbd5f99b70f34e12f123
  *     responses:
  *       201:
- *         description: Payment created or updated successfully.
+ *         description: Payment created successfully.
  *       400:
  *         description: Bad request.
  *       500:
  *         description: Internal server error.
  */
-router.patch("/", createUpdatePayment);
+router.post("/", createPayment);
 
 /**
  * @swagger
