@@ -46,24 +46,24 @@ const createUpdatePayment = async (req, res) => {
         if(result)
         {
             // Twilio credentials
-        const accountSid = 'your_account_sid';
-        const authToken = 'your_auth_token';
+            const accountSid = 'your_account_sid';
+            const authToken = 'your_auth_token';
 
-        const client = twilio(accountSid, authToken);
+            const client = twilio(accountSid, authToken);
 
-        // Send SMS
-        client.messages
-          .create({
-            body: `Your reservation is complete! Amount for one seat ${amountForOneSeat} x number of seats ${numberOfSeats} = total amount ${totalAmount}`,
-            from: '+1234567890',
-            to: phoneNumber,
-          })
-          .then((message) => {
-            console.log('Message sent:', message.sid);
-          })
-          .catch((error) => {
-            console.error('Error sending SMS:', error);
-          });
+            // Send SMS
+            client.messages
+            .create({
+                body: `Your reservation is complete! Amount for one seat ${amountForOneSeat} x number of seats ${numberOfSeats} = total amount ${totalAmount}`,
+                from: '+1234567890',
+                to: phoneNumber,
+            })
+            .then((message) => {
+                console.log('Message sent:', message.sid);
+            })
+            .catch((error) => {
+                console.error('Error sending SMS:', error);
+            });
 
         }
 
@@ -89,6 +89,30 @@ const deletePaymentsByCommuterId = async (req, res) => {
 
     try {
         const result = await Payment.deleteMany({ commuter: commuterId });
+
+        if(result)
+        {
+            // Twilio credentials
+            const accountSid = 'your_account_sid';
+            const authToken = 'your_auth_token';
+
+            const client = twilio(accountSid, authToken);
+
+            // Send SMS
+            client.messages
+            .create({
+                body: `Your reservation is canceled! Amount for one seat ${amountForOneSeat} x number of seats ${numberOfSeats} = total amount ${totalAmount}`,
+                from: '+1234567890',
+                to: phoneNumber,
+            })
+            .then((message) => {
+                console.log('Message sent:', message.sid);
+            })
+            .catch((error) => {
+                console.error('Error sending SMS:', error);
+            });
+
+        }
 
         if (result.deletedCount > 0) {
             return res.status(200).json({

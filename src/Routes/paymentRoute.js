@@ -14,7 +14,6 @@ const {
  *   description: Payment management API
  */
 
-
 /**
  * @swagger
  * /api/v1/lk/payment:
