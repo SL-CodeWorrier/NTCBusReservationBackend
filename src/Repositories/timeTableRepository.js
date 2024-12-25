@@ -1,4 +1,4 @@
-const TimeTable = require("../Models/timeTableModel");
+const TimeTable = require("../Models/timeTable");
 
 // Retrieve timetables by Bus ID
 const getByBusId = async (busId) => {
@@ -24,5 +24,5 @@ const getByBusId = async (busId) => {
 };
 
 module.exports = {
-    getByBusId,
+    getByBusId
 };

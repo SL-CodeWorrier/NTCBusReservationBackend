@@ -121,4 +121,11 @@ const getReservationsByRouteIdController = async (req, res) => {
     }
 };
 
-module.exports = router;
+module.exports = {
+    createReservationController,
+    getReservationByIdController,
+    updateReservationByIdController,
+    deleteReservationByIdController,
+    getReservationsByCommuterIdController,
+    getReservationsByRouteIdController
+};

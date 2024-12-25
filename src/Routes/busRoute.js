@@ -5,13 +5,14 @@ const {
     getById,
     updateById,
     deleteById,
-    getByBusNumber,
-    getByAvailability,
-    getByCTBorPrivate,
-    getByValidate,
-    getByBusOperatorId,
-    getByRouteId,
+    getBusByBusNumber,
+    getBusByAvailability,
+    getBusByCTBorPrivate,
+    getBusByValidate,
+    getBusByBusOperatorId,
+    getBusByRouteId,
 } = require('../Controllers/busController');
+const { getByBusNumber, getByAvailability, getByCTBorPrivate, getByValidate } = require('../Repositories/busRepository');
 
 const router = express.Router();
 

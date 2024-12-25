@@ -1,6 +1,13 @@
 // Required modules
-const Payment = require("../Models/payment");
+const Payment = require("../Models/paymentModel");
 const twilio = require("twilio");
+
+const Ticket = require("../Models/ticketModel");
+const Seat = require("../Models/seatModel");
+const Bus = require("../Models/busModel");
+const Route = require("../Models/routeModel");
+const Location = require("../Models/locationModel");
+const Reservation = require("../Models/reservationModel");
 
 const createPayment = async (req, res) => {
     try {
@@ -43,6 +50,31 @@ const createPayment = async (req, res) => {
 
         if(result && reservationId !== null && reservationId !== undefined)
         {
+
+            const seats = await Seat.find({ reservation: reservationId });
+
+            const tickets = [];
+            for (const seat of seats) {
+
+                const bus = await Bus.findOne({ _id: seat.bus });
+                const route = await Route.findOne({ _id: bus.route });
+
+                const ticket = new Ticket({
+                    amountForOneSeat,
+                    Seat: seat._id,
+                    Bus: bus._id,
+                    Route: route._id,
+                    Reservation: reservationId,
+                });
+                tickets.push(ticket);
+            }
+
+            // Save all tickets to the database
+            await Ticket.insertMany(tickets);
+
+            console.log(`${tickets.length} tickets created successfully.`);
+
+
             // Twilio credentials
             const accountSid = 'your_account_sid';
             const authToken = 'your_auth_token';

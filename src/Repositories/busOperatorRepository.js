@@ -19,6 +19,7 @@ const createBusOperator = async (busOperatorData) => {
         return {
             success: false,
             message: `Failed to create bus operator: ${error.message}`,
+            data: null,
         };
     }
 };
@@ -115,6 +116,7 @@ const deleteBusOperatorById = async (id) => {
 const getBusOperatorByPhoneNumber = async (phoneNumber) => {
     try {
         const busOperator = await BusOperator.findOne({ businessPhoneNumber: phoneNumber }).populate('user');
+        
         if (!busOperator) {
             return {
                 success: false,

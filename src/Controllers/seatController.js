@@ -66,4 +66,8 @@ const getAllSeatsByBusIdController = async (req, res) => {
     }
 };
 
-module.exports = router;
+module.exports = {
+    getSeatByNumberController,
+    getSeatsByBusIdController,
+    getAllSeatsByBusIdController
+};
