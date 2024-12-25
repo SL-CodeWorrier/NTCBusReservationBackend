@@ -2,21 +2,49 @@ const Reservation = require("../Models/reservationModel");
 
 // Create a new reservation
 const createReservation = async (data) => {
+    const session = await mongoose.startSession(); // Start a transaction session
+    session.startTransaction();
     try {
+        // Create a new reservation
         const reservation = new Reservation(data);
-        const savedReservation = await reservation.save();
+        const savedReservation = await reservation.save({ session });
+
+        // Update the seats to mark them as unavailable
+        const seatUpdates = data.listOfSeats.map((seatId) =>
+            Seat.findByIdAndUpdate(
+                seatId,
+                { isAvailable: false },
+                { new: true, session } // Use transaction session
+            )
+        );
+
+        // Wait for all seat updates to complete
+        const updatedSeats = await Promise.all(seatUpdates);
+
+        // Commit the transaction
+        await session.commitTransaction();
+        session.endSession();
+
         return {
             success: true,
-            message: "Reservation created successfully",
-            data: savedReservation,
+            message: "Reservation created successfully and seats updated",
+            data: {
+                reservation: savedReservation,
+                updatedSeats,
+            },
         };
     } catch (error) {
+        // Rollback the transaction in case of an error
+        await session.abortTransaction();
+        session.endSession();
+
         return {
             success: false,
             message: `Failed to create reservation: ${error.message}`,
         };
     }
 };
+
 
 // Retrieve a reservation by its ID
 const getReservationById = async (id) => {
