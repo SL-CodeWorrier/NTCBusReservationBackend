@@ -30,7 +30,7 @@ const createBusOperator = async (busOperatorData) => {
  */
 const getAllBusOperators = async () => {
     try {
-        const busOperators = await BusOperator.find().populate('user');
+        const busOperators = await BusOperator.find();
         return {
             success: true,
             message: 'Bus operators retrieved successfully',
@@ -51,7 +51,7 @@ const getAllBusOperators = async () => {
  */
 const getBusOperatorById = async (id) => {
     try {
-        const busOperator = await BusOperator.findById(id).populate('user');
+        const busOperator = await BusOperator.findById(id);
         return {
             success: true,
             message: 'Bus operator retrieved successfully',
@@ -73,7 +73,7 @@ const getBusOperatorById = async (id) => {
  */
 const updateBusOperatorById = async (id, updateData) => {
     try {
-        const updatedBusOperator = await BusOperator.findByIdAndUpdate(id, updateData, { new: true }).populate('user');
+        const updatedBusOperator = await BusOperator.findByIdAndUpdate(id, updateData, { new: true });
         return {
             success: true,
             message: 'Bus operator updated successfully',
@@ -115,9 +115,9 @@ const deleteBusOperatorById = async (id) => {
  */
 const getBusOperatorByPhoneNumber = async (phoneNumber) => {
     try {
-        const busOperator = await BusOperator.findOne({ businessPhoneNumber: phoneNumber }).populate('user');
+        const busOperator = await BusOperator.findOne({ phoneNumber }); 
         
-        if (!busOperator) {
+        if (busOperator == null) {
             return {
                 success: false,
                 message: 'No bus operator found with the given phone number',
@@ -144,7 +144,7 @@ const getBusOperatorByPhoneNumber = async (phoneNumber) => {
  */
 const getBusOperatorByUserId = async (userId) => {
     try {
-        const busOperator = await BusOperator.findOne({ user: userId }).populate('user');
+        const busOperator = await BusOperator.findOne({ userId }).populate('user');
         if (!busOperator) {
             return {
                 success: false,

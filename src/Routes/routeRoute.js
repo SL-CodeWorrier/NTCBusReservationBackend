@@ -16,18 +16,11 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
+ *               origin:
+ *                 type: string
+ *               destination:
+ *                 type: string
  *               routeNumber:
- *                 type: string
- *               startLocation:
- *                 type: string
- *               endLocation:
- *                 type: string
- *               description:
- *                 type: string
- *               distance:
- *                 type: number
- *                 format: float
- *               estimatedTime:
  *                 type: string
  *     responses:
  *       201:

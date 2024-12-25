@@ -18,7 +18,7 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: [path.join(__dirname, './Routes/authRoute.js')],
+    apis: [path.join(__dirname, './Routes/seatRoute.js')],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

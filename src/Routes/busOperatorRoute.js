@@ -24,15 +24,13 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               firstName:
+ *               businessPhoneNumber:
  *                 type: string
- *               lastName:
+ *               isWorkingProfile:
+ *                 type: boolean
+ *               operatorNumber:
  *                 type: string
- *               phoneNumber:
- *                 type: string
- *               email:
- *                 type: string
- *               userId:
+ *               user:
  *                 type: string
  *     responses:
  *       201:

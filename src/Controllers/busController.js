@@ -144,7 +144,8 @@ const getBusByBusOperatorId = async (req, res) => {
 
 const getBusByRouteId = async (req, res) => {
     try {
-        const result = await getByRouteId(req.params.routeId);
+        const { routeId } = req.params
+        const result = await getByRouteId(routeId);
         return res.status(result.success ? 200 : 404).json(result);
     } catch (error) {
         return res.status(500).json({

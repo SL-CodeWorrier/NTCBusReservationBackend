@@ -1,15 +1,29 @@
 const Seat = require("../Models/seatModel");
+const Bus = require("../Models/busModel");
 
 // Retrieve a seat by its number
-const getByNumber = async (number) => {
+const getByNumber = async (number, busRegNumber) => {
     try {
-        const seat = await Seat.findOne({ number }).populate("bus");
+        // Find the bus by its registration number
+        const bus = await Bus.findOne({ busRegNumber });
+
+        if (!bus) {
+            return {
+                success: false,
+                message: "Bus not found",
+            };
+        }
+
+        // Find the seat by number and ensure it matches the bus ID
+        const seat = await Seat.findOne({ number, bus: bus._id }).populate("bus");
+
         if (!seat) {
             return {
                 success: false,
                 message: "Seat not found",
             };
         }
+
         return {
             success: true,
             message: "Seat retrieved successfully",
@@ -75,8 +89,40 @@ const getAllSeatsByBusId = async (busId) => {
     }
 };
 
+// Function to create a new Seat
+const createSeat = async (number, isAvailable, isBookingInProgress, isWindowSeat, busId) => {
+    try {
+        // Create a new Seat entry
+        const newSeat = new Seat({
+            number,
+            isAvailable,
+            isBookingInProgress,
+            isWindowSeat,
+            bus: busId  // Assuming busId is the ObjectId of an existing Bus document
+        });
+
+        // Save the new Seat entry to the database
+        const savedSeat = await newSeat.save();
+
+        return {
+            success: true,
+            message: "Seat created successfully",
+            data: savedSeat,
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            message: "Error creating Seat",
+            data: null,
+        };
+    }
+};
+
 module.exports = {
     getByNumber,
     getSeatsByBusId,
     getAllSeatsByBusId,
+    createSeat
 };

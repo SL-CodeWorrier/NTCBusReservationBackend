@@ -1,4 +1,5 @@
 const Bus = require('../Models/busModel');
+const Route = require('../Models/routeModel');
 
 // Create a new Bus
 const createBus = async (busData) => {
@@ -194,14 +195,26 @@ const getByBusOperatorId = async (busOperatorId) => {
     }
 };
 
-// Get Buses by Route ID
 const getByRouteId = async (routeId) => {
     try {
-        const buses = await Bus.find({ route: routeId }).populate('busOperator route');
+        // Query buses and populate associated fields
+        const buses = await Bus.find().populate('busOperator route');
+
+        // Filter buses by matching routeId
+        const filteredBuses = buses.filter(bus => bus.route._id.toString() === routeId);
+
+        if (filteredBuses.length === 0) {
+            return {
+                success: false,
+                message: `No buses found for Route ID: ${routeId}`,
+                data: [],
+            };
+        }
+
         return {
             success: true,
-            message: 'Buses retrieved successfully by Route ID',
-            data: buses,
+            message: `Buses retrieved successfully for Route ID: ${routeId}`,
+            data: filteredBuses,
         };
     } catch (error) {
         return {

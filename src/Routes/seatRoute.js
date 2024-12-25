@@ -3,7 +3,8 @@ const router = express.Router();
 const {
     getSeatByNumberController,
     getSeatsByBusIdController,
-    getAllSeatsByBusIdController
+    getAllSeatsByBusIdController,
+    createSeatForBus
 } = require("../Controllers/seatController");
 
 /**
@@ -19,6 +20,12 @@ const {
  *         schema:
  *           type: string
  *         description: The seat number to retrieve the seat details
+ *       - in: query
+ *         name: busRegNumber
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: The bus registration number to filter the seat by
  *     responses:
  *       200:
  *         description: Successfully retrieved seat details.
@@ -53,7 +60,7 @@ const {
  *       500:
  *         description: Internal server error.
  */
-router.get("/seat/number/:number", getSeatByNumberController);
+router.get("/number/:number", getSeatByNumberController);
 
 /**
  * @swagger
@@ -119,7 +126,7 @@ router.get("/seat/number/:number", getSeatByNumberController);
  *       500:
  *         description: Internal server error.
  */
-router.get("/seat/bus/:busId", getSeatsByBusIdController);
+router.get("/bus/:busId", getSeatsByBusIdController);
 
 /**
  * @swagger
@@ -170,6 +177,108 @@ router.get("/seat/bus/:busId", getSeatsByBusIdController);
  *       500:
  *         description: Internal server error.
  */
-router.get("/seat/all/:busId", getAllSeatsByBusIdController);
+router.get("/all/:busId", getAllSeatsByBusIdController);
+
+/**
+ * @swagger
+ * /api/v1/lk/seat:
+ *   post:
+ *     summary: Create a new seat for a bus
+ *     tags: [Seat]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               number:
+ *                 type: string
+ *                 description: The seat number
+ *                 example: "A1"
+ *               isAvailable:
+ *                 type: boolean
+ *                 description: Availability status of the seat
+ *                 example: true
+ *               isBookingInProgress:
+ *                 type: boolean
+ *                 description: Indicates if the seat booking is in progress
+ *                 example: false
+ *               isWindowSeat:
+ *                 type: boolean
+ *                 description: Indicates if the seat is a window seat
+ *                 example: true
+ *               busId:
+ *                 type: string
+ *                 description: The ID of the bus that the seat belongs to
+ *                 example: "507f191e810c19729de860ea"
+ *     responses:
+ *       201:
+ *         description: Successfully created the seat.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Seat created successfully"
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     number:
+ *                       type: string
+ *                       example: "A1"
+ *                     isAvailable:
+ *                       type: boolean
+ *                       example: true
+ *                     isBookingInProgress:
+ *                       type: boolean
+ *                       example: false
+ *                     isWindowSeat:
+ *                       type: boolean
+ *                       example: true
+ *                     busId:
+ *                       type: string
+ *                       example: "507f191e810c19729de860ea"
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-12-25T12:00:00Z"
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-12-25T12:00:00Z"
+ *       400:
+ *         description: Missing required fields in the request body
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Please provide all required fields: number, isAvailable, isBookingInProgress, isWindowSeat, busId"
+ *       500:
+ *         description: An error occurred while creating the seat
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "An error occurred while creating the Seat."
+ */
+router.post('/', createSeatForBus);
 
 module.exports = router;

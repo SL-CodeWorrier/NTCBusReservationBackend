@@ -6,7 +6,6 @@ const { type } = require("os");
 // Location schema definition
 const locationSchema = new mongoose.Schema({
     Name: { type: String, required: true },       // Name of the current location
-    dateTime: { type: Date, required: true },                    // Date and time of the location record
     route: { type: mongoose.Schema.Types.ObjectId, ref: "Route", required: true }, // Foreign Key to Route
 }, { timestamps: true }); // Adds createdAt and updatedAt timestamps
 

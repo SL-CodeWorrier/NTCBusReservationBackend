@@ -23,10 +23,6 @@ const router = express.Router();
  *               Name:
  *                 type: string
  *                 description: Name of the location
- *               dateTime:
- *                 type: string
- *                 format: date-time
- *                 description: Date and time of the location
  *               route:
  *                 type: string
  *                 description: ID of the associated route

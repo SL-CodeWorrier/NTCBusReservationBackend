@@ -12,7 +12,7 @@ const {
     getBusByBusOperatorId,
     getBusByRouteId,
 } = require('../Controllers/busController');
-const { getByBusNumber, getByAvailability, getByCTBorPrivate, getByValidate } = require('../Repositories/busRepository');
+const { getRouteById } = require('../Repositories/routeRepository');
 
 const router = express.Router();
 
@@ -55,11 +55,11 @@ router.get('/', getAll);
  *               isAvailable:
  *                 type: boolean
  *               isCTBorPrivate:
- *                 type: boolean
+ *                 type: string
  *               isValidated:
  *                 type: boolean
  *               isACorNonAC:
- *                 type: boolean
+ *                 type: string
  *               busOperator:
  *                 type: string
  *               route:
@@ -96,6 +96,52 @@ router.post('/', create);
  *         description: An error occurred on the server.
  */
 router.get('/:id', getById);
+
+/**
+ * @swagger
+ * /api/v1/lk/buses/bus-operator/{busOperatorId}:
+ *   get:
+ *     summary: Retrieve a bus by ID
+ *     tags: [Buses]
+ *     parameters:
+ *       - in: path
+ *         name: busOperatorId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The bus Operator ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the bus.
+ *       404:
+ *         description: Bus not found.
+ *       500:
+ *         description: An error occurred on the server.
+ */
+router.get('/bus-operator/:busOperatorId', getBusByBusOperatorId);
+
+/**
+ * @swagger
+ * /api/v1/lk/buses/route/{routeId}:
+ *   get:
+ *     summary: Retrieve buses by route ID
+ *     tags: [Buses]
+ *     parameters:
+ *       - in: path
+ *         name: routeId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The route ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the buses.
+ *       404:
+ *         description: Route not found.
+ *       500:
+ *         description: An error occurred on the server.
+ */
+router.get('/route/:routeId', getBusByRouteId);
 
 /**
  * @swagger
@@ -169,7 +215,7 @@ router.delete('/:id', deleteById);
  *       500:
  *         description: An error occurred on the server.
  */
-router.get('/search/by-bus-number', getByBusNumber);
+router.get('/search/by-bus-number', getBusByBusNumber);
 
 /**
  * @swagger
@@ -191,7 +237,7 @@ router.get('/search/by-bus-number', getByBusNumber);
  *       500:
  *         description: An error occurred on the server.
  */
-router.get('/search/by-availability', getByAvailability);
+router.get('/search/by-availability', getBusByAvailability);
 
 /**
  * @swagger
@@ -213,7 +259,7 @@ router.get('/search/by-availability', getByAvailability);
  *       500:
  *         description: An error occurred on the server.
  */
-router.get('/search/by-ctb-private', getByCTBorPrivate);
+router.get('/search/by-ctb-private', getBusByCTBorPrivate);
 
 /**
  * @swagger
@@ -235,6 +281,6 @@ router.get('/search/by-ctb-private', getByCTBorPrivate);
  *       500:
  *         description: An error occurred on the server.
  */
-router.get('/search/by-validation', getByValidate);
+router.get('/search/by-validation', getBusByValidate);
 
 module.exports = router;

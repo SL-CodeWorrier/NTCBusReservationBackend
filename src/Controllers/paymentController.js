@@ -5,6 +5,7 @@ const twilio = require("twilio");
 const Ticket = require("../Models/ticketModel");
 const Seat = require("../Models/seatModel");
 const Bus = require("../Models/busModel");
+const TimeTable = require("../Models/timeTable");
 const Route = require("../Models/routeModel");
 const Location = require("../Models/locationModel");
 const Reservation = require("../Models/reservationModel");
@@ -57,6 +58,7 @@ const createPayment = async (req, res) => {
             for (const seat of seats) {
 
                 const bus = await Bus.findOne({ _id: seat.bus });
+                const timeTable = await TimeTable.findOne({ bus: bus._id });
                 const route = await Route.findOne({ _id: bus.route });
 
                 const ticket = new Ticket({
