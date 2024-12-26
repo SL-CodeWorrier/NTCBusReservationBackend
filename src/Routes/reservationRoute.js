@@ -15,6 +15,7 @@ const router = express.Router();
  * /api/v1/lk/reservations:
  *   post:
  *     summary: Create a new reservation
+ *     tags: [Reservation]
  *     description: Add a new reservation with details such as reservedDateTime, listOfSeats, commuter, startLocation, endLocation, and route.
  *     requestBody:
  *       required: true
@@ -56,6 +57,7 @@ router.post("/", createReservationController);
  * /api/v1/lk/reservations/{id}:
  *   get:
  *     summary: Get reservation by ID
+ *     tags: [Reservation]
  *     description: Retrieve reservation details using its unique ID.
  *     parameters:
  *       - in: path
@@ -76,6 +78,7 @@ router.get("/:id", getReservationByIdController);
  * /api/v1/lk/reservations/{id}:
  *   put:
  *     summary: Update a reservation
+ *     tags: [Reservation]
  *     description: Update reservation details by its unique ID.
  *     parameters:
  *       - in: path
@@ -102,6 +105,7 @@ router.put("/:id", updateReservationByIdController);
  * /api/v1/lk/reservations/{id}:
  *   delete:
  *     summary: Delete a reservation
+ *     tags: [Reservation]
  *     description: Remove a reservation using its unique ID.
  *     parameters:
  *       - in: path
@@ -122,6 +126,7 @@ router.delete("/:id", deleteReservationByIdController);
  * /api/v1/lk/reservations/commuter/{commuterId}:
  *   get:
  *     summary: Get reservations by commuter ID
+ *     tags: [Reservation]
  *     description: Retrieve all reservations associated with a specific commuter ID.
  *     parameters:
  *       - in: path
@@ -142,6 +147,7 @@ router.get("/commuter/:commuterId", getReservationsByCommuterIdController);
  * /api/v1/lk/reservations/route/{routeId}:
  *   get:
  *     summary: Get reservations by route ID
+ *     tags: [Reservation]
  *     description: Retrieve all reservations associated with a specific route ID.
  *     parameters:
  *       - in: path

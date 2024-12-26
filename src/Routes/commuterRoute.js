@@ -17,6 +17,7 @@ const router = express.Router();
  * /api/v1/lk/commuter/create:
  *   post:
  *     summary: Create a new commuter
+ *     tags: [Commuter]
  *     description: Create a new commuter with the provided data.
  *     requestBody:
  *       required: true
@@ -56,6 +57,7 @@ router.post('/create', create);
  * /api/v1/lk/commuter:
  *   get:
  *     summary: Get all commuters
+ *     tags: [Commuter]
  *     description: Retrieve a list of all commuters.
  *     responses:
  *       200:
@@ -70,6 +72,7 @@ router.get('/', getAll);
  * /api/v1/lk/commuter/{id}:
  *   get:
  *     summary: Get a commuter by ID
+ *     tags: [Commuter]
  *     description: Retrieve a commuter's details by their ID.
  *     parameters:
  *       - in: path
@@ -91,6 +94,7 @@ router.get('/:id', getById);
  * /api/v1/lk/commuter/{id}:
  *   put:
  *     summary: Update a commuter by ID
+ *     tags: [Commuter]
  *     description: Update a commuter's information by their ID.
  *     parameters:
  *       - in: path
@@ -135,6 +139,7 @@ router.put('/:id', updateById);
  * /api/v1/lk/commuter/{id}:
  *   delete:
  *     summary: Delete a commuter by ID
+ *     tags: [Commuter]
  *     description: Delete a commuter from the database by their ID.
  *     parameters:
  *       - in: path
@@ -156,6 +161,7 @@ router.delete('/:id', deleteById);
  * /api/v1/lk/commuter/province/{province}:
  *   get:
  *     summary: Get commuters by province
+ *     tags: [Commuter]
  *     description: Retrieve a list of commuters in a specific province.
  *     parameters:
  *       - in: path
@@ -175,6 +181,7 @@ router.get('/province/:province', getByProvince);
  * /api/v1/lk/commuter/city/{city}:
  *   get:
  *     summary: Get commuters by city
+ *     tags: [Commuter]
  *     description: Retrieve a list of commuters in a specific city.
  *     parameters:
  *       - in: path
@@ -194,6 +201,7 @@ router.get('/city/:city', getByCity);
  * /api/v1/lk/commuter/credential/{credential}:
  *   get:
  *     summary: Get commuter by phone number or email
+ *     tags: [Commuter]
  *     description: Retrieve a commuter's details by their phone number or email.
  *     parameters:
  *       - in: path

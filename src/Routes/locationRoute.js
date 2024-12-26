@@ -12,6 +12,7 @@ const router = express.Router();
  * /api/v1/lk/locations:
  *   post:
  *     summary: Create a new location
+ *     tags: [Location]
  *     description: Create a new location record with the provided data.
  *     requestBody:
  *       required: true
@@ -39,6 +40,7 @@ router.post("/", create);
  * /api/v1/lk/locations/route/{routeNo}:
  *   get:
  *     summary: Get locations by route number
+ *     tags: [Location]
  *     description: Retrieve locations associated with a specific route number.
  *     parameters:
  *       - in: path
@@ -62,6 +64,7 @@ router.get("/route/:routeNo", getLocationByRouteNo);
  * /api/v1/lk/locations/name/{name}:
  *   get:
  *     summary: Get locations by name
+ *     tags: [Location]
  *     description: Retrieve locations that match a specific name.
  *     parameters:
  *       - in: path

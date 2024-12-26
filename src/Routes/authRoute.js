@@ -8,6 +8,7 @@ const router = express.Router();
  * /api/v1/lk/auth/register:
  *   post:
  *     summary: Register a new user
+ *     tags: [Authentication]
  *     description: Register a user with username, password, and role.
  *     requestBody:
  *       required: true
@@ -39,6 +40,7 @@ router.post("/register", register);
  * /api/v1/lk/auth/login:
  *   post:
  *     summary: Login a user
+ *     tags: [Authentication]
  *     description: Authenticate a user with username and password.
  *     requestBody:
  *       required: true
@@ -66,6 +68,7 @@ router.post("/login", login);
  * /api/v1/lk/auth/verify:
  *   post:
  *     summary: Verify a user
+ *     tags: [Authentication]
  *     description: Verify a user by phone number.
  *     requestBody:
  *       required: true
@@ -89,6 +92,7 @@ router.post("/verify", verify);
  * /api/v1/lk/auth/forgot:
  *   post:
  *     summary: Forgot password
+ *     tags: [Authentication]
  *     description: Generate a password reset token for the user.
  *     requestBody:
  *       required: true
@@ -112,6 +116,7 @@ router.post("/forgot", forgot);
  * /api/v1/lk/auth/reset:
  *   post:
  *     summary: Reset password
+ *     tags: [Authentication]
  *     description: Reset the password using the token and new password.
  *     requestBody:
  *       required: true
@@ -137,6 +142,7 @@ router.post("/reset", reset);
  * /api/v1/lk/auth/update/{id}:
  *   put:
  *     summary: Update user information
+ *     tags: [Authentication]
  *     description: Update details of a user by their ID.
  *     parameters:
  *       - name: id
@@ -166,6 +172,7 @@ router.put("/update/:id", update);
  * /api/v1/lk/auth/delete/{id}:
  *   delete:
  *     summary: Delete a user
+ *     tags: [Authentication]
  *     description: Delete a user by their ID.
  *     parameters:
  *       - name: id
