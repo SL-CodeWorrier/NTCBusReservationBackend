@@ -17,9 +17,24 @@ const swaggerOptions = {
                 url: `http://localhost:${PORT}`,
             },
         ],
+        components: {
+            securitySchemes: {
+                BearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
+        },
+        security: [
+            {
+                BearerAuth: [],
+            },
+        ],
     },
-    apis: [path.join(__dirname, './Routes/seatRoute.js')],
+    apis: [path.join(__dirname, './Routes/*.js')],
 };
+
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 

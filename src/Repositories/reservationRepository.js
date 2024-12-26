@@ -1,29 +1,47 @@
 const Reservation = require("../Models/reservationModel");
+const Seat = require("../Models/seatModel");
 
-// Create a new reservation
 const createReservation = async (data) => {
-    const session = await mongoose.startSession(); // Start a transaction session
-    session.startTransaction();
     try {
         // Create a new reservation
         const reservation = new Reservation(data);
-        const savedReservation = await reservation.save({ session });
+        const savedReservation = await reservation.save();
 
-        // Update the seats to mark them as unavailable
+        // Update seat availability
         const seatUpdates = data.listOfSeats.map((seatId) =>
             Seat.findByIdAndUpdate(
                 seatId,
-                { isAvailable: false },
-                { new: true, session } // Use transaction session
+                { isAvailable: false, isBookingInProgress: true }, // Correctly structured update object
+                { new: true } // Options
             )
         );
 
         // Wait for all seat updates to complete
         const updatedSeats = await Promise.all(seatUpdates);
 
-        // Commit the transaction
-        await session.commitTransaction();
-        session.endSession();
+        if (!updatedSeats || updatedSeats.some(seat => !seat)) {
+            return {
+                success: false,
+                message: "Failed to update one or more seats",
+            };
+        }
+
+        // Twilio credentials
+        const accountSid = 'ACf666f979077bf5ab8061431197a62e0e';
+        const authToken = '979753717cdc36a668dd4c4e961e80ef';
+        const client = require('twilio')(accountSid, authToken);
+
+        await client.messages
+            .create({
+                body: 'Your reservation is complete!',
+                messagingServiceSid: 'MGb3d9b9603dce87f7d71879846d0edbb2',
+                to: '+94770251175'
+            })
+            .then(message => console.log("Twilio Message SID:", message.sid))
+            .catch(error => {
+                console.error("Twilio Error:", error);
+                // Optional: handle notification failure differently if needed
+            });
 
         return {
             success: true,
@@ -34,9 +52,7 @@ const createReservation = async (data) => {
             },
         };
     } catch (error) {
-        // Rollback the transaction in case of an error
-        await session.abortTransaction();
-        session.endSession();
+        console.error("Error creating reservation:", error);
 
         return {
             success: false,

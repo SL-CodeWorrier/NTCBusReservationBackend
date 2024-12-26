@@ -1,13 +1,13 @@
 const express = require("express");
 const {
-    createCommuter,
-    getAllCommuters,
-    getCommuterById,
-    updateCommuterById,
-    deleteCommuterById,
-    getCommutersByProvince,
-    getCommutersByCity,
-    getCommuterByPhoneNumberOrEmail,
+    create,
+    getAll,
+    getById,
+    updateById,
+    deleteById,
+    getByProvince,
+    getByCity,
+    getByPhoneNumberOrEmail,
 } = require("../Controllers/commuterController");
 
 const router = express.Router();
@@ -49,7 +49,7 @@ const router = express.Router();
  *       400:
  *         description: Bad request, invalid input
  */
-router.post('/create', createCommuter);
+router.post('/create', create);
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ router.post('/create', createCommuter);
  *       500:
  *         description: Failed to retrieve commuters
  */
-router.get('/', getAllCommuters);
+router.get('/', getAll);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get('/', getAllCommuters);
  *       404:
  *         description: Commuter not found
  */
-router.get('/:id', getCommuterById);
+router.get('/:id', getById);
 
 /**
  * @swagger
@@ -128,7 +128,7 @@ router.get('/:id', getCommuterById);
  *       404:
  *         description: Commuter not found
  */
-router.put('/:id', updateCommuterById);
+router.put('/:id', updateById);
 
 /**
  * @swagger
@@ -149,7 +149,7 @@ router.put('/:id', updateCommuterById);
  *       404:
  *         description: Commuter not found
  */
-router.delete('/:id', deleteCommuterById);
+router.delete('/:id', deleteById);
 
 /**
  * @swagger
@@ -168,7 +168,7 @@ router.delete('/:id', deleteCommuterById);
  *       200:
  *         description: Successfully retrieved commuters by province
  */
-router.get('/province/:province', getCommutersByProvince);
+router.get('/province/:province', getByProvince);
 
 /**
  * @swagger
@@ -187,7 +187,7 @@ router.get('/province/:province', getCommutersByProvince);
  *       200:
  *         description: Successfully retrieved commuters by city
  */
-router.get('/city/:city', getCommutersByCity);
+router.get('/city/:city', getByCity);
 
 /**
  * @swagger
@@ -208,6 +208,6 @@ router.get('/city/:city', getCommutersByCity);
  *       404:
  *         description: Commuter not found
  */
-router.get('/credential/:credential', getCommuterByPhoneNumberOrEmail);
+router.get('/credential/:credential', getByPhoneNumberOrEmail);
 
 module.exports = router;

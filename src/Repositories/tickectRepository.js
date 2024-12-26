@@ -4,11 +4,8 @@ const Ticket = require("../Models/ticketModel");
 const getTicketById = async (id) => {
 
     try {
-        const ticket = await Ticket.findById(id)
-                                .populate("Seat")
-                                .populate("Bus")
-                                .populate("Route")
-                                .populate("Reservation");
+        const ticket = await Ticket.findById(id).populate("seat bus timeTable route reservation");
+
         if (ticket == null) {
             return {
                 success: false,
@@ -18,7 +15,7 @@ const getTicketById = async (id) => {
         return {
             success: true,
             message: "Ticket retrieved successfully",
-            data: seat,
+            data: ticket,
         };
     } catch (error) {
         return {
@@ -31,12 +28,8 @@ const getTicketById = async (id) => {
 const getTicketsByReservationId = async (reservationId) => {
 
     try {
-        const tickets = await Ticket.find({ Reservation: reservationId })
-                                .populate("Seat")
-                                .populate("Bus")
-                                .populate("Route")
-                                .populate("Reservation");
-                                
+        const tickets = (await Ticket.find().populate("seat bus timeTable route reservation")).filter(ticket => ticket.reservation._id == reservationId);
+                        
         if (tickets.length == 0) {
             return {
                 success: false,
@@ -46,7 +39,7 @@ const getTicketsByReservationId = async (reservationId) => {
         return {
             success: true,
             message: "Tickets retrieved successfully",
-            data: seat,
+            data: tickets,
         };
     } catch (error) {
         return {
