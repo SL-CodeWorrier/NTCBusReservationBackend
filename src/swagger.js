@@ -2,6 +2,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const path = require('path');
 
 const PORT = process.env.PORT || 7002;
+
 // Swagger configuration
 const swaggerOptions = {
     definition: {
@@ -17,7 +18,7 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: [path.join(__dirname, './Routes/*.js')],
+    apis: [path.join(__dirname, './Routes/seatRoute.js')],
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);

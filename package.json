@@ -4,7 +4,7 @@
   "description": "Bus Reservation Application for NTC of Sri Lanka",
   "main": "index.js",
   "scripts": {
-    "dev" : "nodemon src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chathura Aththanayaka",
@@ -17,7 +17,8 @@
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "twilio": "^5.4.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
