@@ -32,7 +32,7 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: [path.join(__dirname, './Routes/*.js')],
+    apis: [path.join(__dirname, './Routes/seatRoute.js')],
 };
 
 
