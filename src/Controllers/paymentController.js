@@ -86,7 +86,7 @@ const createPayment = async (req, res) => {
             await Ticket.insertMany(tickets);
 
             console.log(`${tickets.length} tickets created successfully.`);
-/*
+
             // Twilio credentials
             const accountSid = 'ACf666f979077bf5ab8061431197a62e0e';
             const authToken = '979753717cdc36a668dd4c4e961e80ef';
@@ -103,7 +103,7 @@ const createPayment = async (req, res) => {
                     console.error("Twilio Error:", error);
                     // Optional: handle notification failure differently if needed
                 });
-*/
+
         }
 
         return res.status(201).json({
