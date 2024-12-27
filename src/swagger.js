@@ -1,6 +1,7 @@
 const swaggerJsDoc = require('swagger-jsdoc');
 const path = require('path');
 
+const isLocal = process.env.NODE_ENV !== 'production'; // Detect environment
 const PORT = process.env.PORT || 7002;
 
 // Swagger configuration
@@ -12,28 +13,17 @@ const swaggerOptions = {
             version: '1.0.0',
             description: 'API documentation for Sri Lanka National Transport Council',
         },
-        servers: [
-            {
-                url: `http://localhost:${PORT}`, // Localhost server
-            },
-            {
-                url: 'https://ntcbusreservationapp-996c15e7dda2.herokuapp.com/', // Hosted server
-            },
-        ],
-        components: {
-            securitySchemes: {
-                BearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT',
-                },
-            },
-        },
-        security: [
-            {
-                BearerAuth: [],
-            },
-        ],
+        servers: isLocal
+            ? [
+                  {
+                      url: `http://localhost:${PORT}`, // Localhost server
+                  },
+              ]
+            : [
+                  {
+                      url: 'https://ntcbusreservationapp-996c15e7dda2.herokuapp.com/', // Hosted server
+                  },
+              ],
         components: {
             securitySchemes: {
                 BearerAuth: {
@@ -51,7 +41,6 @@ const swaggerOptions = {
     },
     apis: [path.join(__dirname, './Routes/*.js')],
 };
-
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
