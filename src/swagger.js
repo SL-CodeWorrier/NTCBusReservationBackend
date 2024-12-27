@@ -14,7 +14,10 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://localhost:${PORT}`,
+                url: `http://localhost:${PORT}`, // Localhost server
+            },
+            {
+                url: 'https://ntcbusreservationapp-996c15e7dda2.herokuapp.com/', // Hosted server
             },
         ],
         components: {
