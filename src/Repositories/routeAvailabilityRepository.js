@@ -1,4 +1,6 @@
 const RouteAvailability = require('../Models/routeAvailabilityModel'); // Import the RouteAvailability model
+const Route = require('../Models/routeModel'); // Import the RouteAvailability model
+const { route } = require('../Routes/commuterRoute');
 
 /**
  * Retrieve all route availabilities.
@@ -9,11 +11,13 @@ const RouteAvailability = require('../Models/routeAvailabilityModel'); // Import
  */
 const getAllRouteAvailabilities = async (isAvailable) => {
     try {
-        // Build the query based on the ⁠ isAvailable ⁠ parameter
-        const query = isAvailable !== null ? { isAvailable } : {};
 
         // Fetch data from the database
-        const routeAvailabilities = await RouteAvailability.find(query).populate('route');
+        const routeAvailabilities = isAvailable == null ?
+         await RouteAvailability.find().populate('route') :
+         isAvailable == true ?
+            await RouteAvailability.find({ isAvailable: true }).populate('route') :
+            await RouteAvailability.find({ isAvailable: false }).populate('route')
 
         return {
             success: true,
