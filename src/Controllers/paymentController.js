@@ -9,13 +9,12 @@ const TimeTable = require("../Models/timeTable");
 const Route = require("../Models/routeModel");
 const Location = require("../Models/locationModel");
 const Reservation = require("../Models/reservationModel");
+const Commuter = require("../Models/commuterModel"); // Add this line
+const User = require("../Models/userModel"); 
 
 const createPayment = async (req, res) => {
     try {
-        const { paidDateTime, reservationId, amountForOneSeat, numberOfSeats, commuter } = req.body;
-
-        // Calculate totalAmount if not provided
-        const totalAmount = amountForOneSeat * numberOfSeats;
+        const { paidDateTime, reservationId, amountForOneSeat, commuter } = req.body;
 
         // Find the commuter document to get the userId
         const commuterDoc = await Commuter.findById(commuter).populate("user");
@@ -25,6 +24,12 @@ const createPayment = async (req, res) => {
                 message: "Commuter not found.",
             });
         }
+
+        const currentReservation = await Reservation.findById(reservationId);
+        const numberOfSeats = currentReservation.listOfSeats.length;
+
+        // Calculate totalAmount if not provided
+        const totalAmount = amountForOneSeat * numberOfSeats;
 
         // Retrieve the user's phone number using the user reference in commuter
         const userDoc = await User.findById(commuterDoc.user);
@@ -52,22 +57,28 @@ const createPayment = async (req, res) => {
         if(result && reservationId !== null && reservationId !== undefined)
         {
 
-            const seats = await Seat.find({ reservation: reservationId });
+            const seatIds = currentReservation.listOfSeats;
+            console.log(seatIds);
 
             const tickets = [];
-            for (const seat of seats) {
+            for (const seatId of seatIds) {
 
+                const seat = await Seat.findById(seatId);
                 const bus = await Bus.findOne({ _id: seat.bus });
                 const timeTable = await TimeTable.findOne({ bus: bus._id });
                 const route = await Route.findOne({ _id: bus.route });
 
                 const ticket = new Ticket({
-                    amountForOneSeat,
-                    Seat: seat._id,
-                    Bus: bus._id,
-                    Route: route._id,
-                    Reservation: reservationId,
+                    price: amountForOneSeat,
+                    seat: seat._id,
+                    bus: bus._id,
+                    timeTable: timeTable,
+                    route: route._id,
+                    reservation: reservationId,
                 });
+
+                console.log(ticket);
+
                 tickets.push(ticket);
             }
 
@@ -76,26 +87,22 @@ const createPayment = async (req, res) => {
 
             console.log(`${tickets.length} tickets created successfully.`);
 
-
             // Twilio credentials
-            const accountSid = 'your_account_sid';
-            const authToken = 'your_auth_token';
+            const accountSid = 'ACf666f979077bf5ab8061431197a62e0e';
+            const authToken = '979753717cdc36a668dd4c4e961e80ef';
+            const client = require('twilio')(accountSid, authToken);
 
-            const client = twilio(accountSid, authToken);
-
-            // Send SMS
-            client.messages
-            .create({
-                body: `Your reservation is complete! Amount for one seat ${amountForOneSeat} x number of seats ${numberOfSeats} = total amount ${totalAmount}`,
-                from: '+1234567890',
-                to: phoneNumber,
-            })
-            .then((message) => {
-                console.log('Message sent:', message.sid);
-            })
-            .catch((error) => {
-                console.error('Error sending SMS:', error);
-            });
+            await client.messages
+                .create({
+                    body: `Your payment is complete! Number of seats: ${numberOfSeats} and Price for one seat: ${amountForOneSeat} | Total: Rs. ${totalAmount}`,
+                    messagingServiceSid: 'MGb3d9b9603dce87f7d71879846d0edbb2',
+                    to: '+94770251175'
+                })
+                .then(message => console.log("Twilio Message SID:", message.sid))
+                .catch(error => {
+                    console.error("Twilio Error:", error);
+                    // Optional: handle notification failure differently if needed
+                });
 
         }
 

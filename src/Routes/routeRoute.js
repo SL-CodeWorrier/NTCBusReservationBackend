@@ -8,6 +8,7 @@ const router = express.Router();
  * /api/v1/lk/routes:
  *   post:
  *     summary: Create a new route
+ *     tags: [Route]
  *     description: Create a new route with the provided details.
  *     requestBody:
  *       required: true
@@ -35,6 +36,7 @@ router.post("/", routeController.create);
  * /api/v1/lk/routes/{id}:
  *   get:
  *     summary: Get a route by ID
+ *     tags: [Route]
  *     description: Retrieve the route details by route ID.
  *     parameters:
  *       - in: path
@@ -56,6 +58,7 @@ router.get("/:id", routeController.getById);
  * /api/v1/lk/routes:
  *   get:
  *     summary: Get all routes
+ *     tags: [Route]
  *     description: Retrieve a list of all routes.
  *     responses:
  *       200:
@@ -70,6 +73,7 @@ router.get("/", routeController.getAll);
  * /api/v1/lk/routes/{id}:
  *   put:
  *     summary: Update a route by ID
+ *     tags: [Route]
  *     description: Update the route information by route ID.
  *     parameters:
  *       - in: path
@@ -111,6 +115,7 @@ router.put("/:id", routeController.update);
  * /api/v1/lk/routes/{id}:
  *   delete:
  *     summary: Delete a route by ID
+ *     tags: [Route]
  *     description: Delete the route by its ID.
  *     parameters:
  *       - in: path
@@ -132,6 +137,7 @@ router.delete("/:id", routeController.deleteById);
  * /api/v1/lk/routes/number/{routeNumber}:
  *   get:
  *     summary: Get a route by route number
+ *     tags: [Route]
  *     description: Retrieve a route's details by its route number.
  *     parameters:
  *       - in: path

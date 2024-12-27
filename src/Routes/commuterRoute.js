@@ -1,13 +1,13 @@
 const express = require("express");
 const {
-    createCommuter,
-    getAllCommuters,
-    getCommuterById,
-    updateCommuterById,
-    deleteCommuterById,
-    getCommutersByProvince,
-    getCommutersByCity,
-    getCommuterByPhoneNumberOrEmail,
+    create,
+    getAll,
+    getById,
+    updateById,
+    deleteById,
+    getByProvince,
+    getByCity,
+    getByPhoneNumberOrEmail,
 } = require("../Controllers/commuterController");
 
 const router = express.Router();
@@ -17,6 +17,7 @@ const router = express.Router();
  * /api/v1/lk/commuter/create:
  *   post:
  *     summary: Create a new commuter
+ *     tags: [Commuter]
  *     description: Create a new commuter with the provided data.
  *     requestBody:
  *       required: true
@@ -49,13 +50,14 @@ const router = express.Router();
  *       400:
  *         description: Bad request, invalid input
  */
-router.post('/create', createCommuter);
+router.post('/create', create);
 
 /**
  * @swagger
  * /api/v1/lk/commuter:
  *   get:
  *     summary: Get all commuters
+ *     tags: [Commuter]
  *     description: Retrieve a list of all commuters.
  *     responses:
  *       200:
@@ -63,13 +65,14 @@ router.post('/create', createCommuter);
  *       500:
  *         description: Failed to retrieve commuters
  */
-router.get('/', getAllCommuters);
+router.get('/', getAll);
 
 /**
  * @swagger
  * /api/v1/lk/commuter/{id}:
  *   get:
  *     summary: Get a commuter by ID
+ *     tags: [Commuter]
  *     description: Retrieve a commuter's details by their ID.
  *     parameters:
  *       - in: path
@@ -84,13 +87,14 @@ router.get('/', getAllCommuters);
  *       404:
  *         description: Commuter not found
  */
-router.get('/:id', getCommuterById);
+router.get('/:id', getById);
 
 /**
  * @swagger
  * /api/v1/lk/commuter/{id}:
  *   put:
  *     summary: Update a commuter by ID
+ *     tags: [Commuter]
  *     description: Update a commuter's information by their ID.
  *     parameters:
  *       - in: path
@@ -128,13 +132,14 @@ router.get('/:id', getCommuterById);
  *       404:
  *         description: Commuter not found
  */
-router.put('/:id', updateCommuterById);
+router.put('/:id', updateById);
 
 /**
  * @swagger
  * /api/v1/lk/commuter/{id}:
  *   delete:
  *     summary: Delete a commuter by ID
+ *     tags: [Commuter]
  *     description: Delete a commuter from the database by their ID.
  *     parameters:
  *       - in: path
@@ -149,13 +154,14 @@ router.put('/:id', updateCommuterById);
  *       404:
  *         description: Commuter not found
  */
-router.delete('/:id', deleteCommuterById);
+router.delete('/:id', deleteById);
 
 /**
  * @swagger
  * /api/v1/lk/commuter/province/{province}:
  *   get:
  *     summary: Get commuters by province
+ *     tags: [Commuter]
  *     description: Retrieve a list of commuters in a specific province.
  *     parameters:
  *       - in: path
@@ -168,13 +174,14 @@ router.delete('/:id', deleteCommuterById);
  *       200:
  *         description: Successfully retrieved commuters by province
  */
-router.get('/province/:province', getCommutersByProvince);
+router.get('/province/:province', getByProvince);
 
 /**
  * @swagger
  * /api/v1/lk/commuter/city/{city}:
  *   get:
  *     summary: Get commuters by city
+ *     tags: [Commuter]
  *     description: Retrieve a list of commuters in a specific city.
  *     parameters:
  *       - in: path
@@ -187,13 +194,14 @@ router.get('/province/:province', getCommutersByProvince);
  *       200:
  *         description: Successfully retrieved commuters by city
  */
-router.get('/city/:city', getCommutersByCity);
+router.get('/city/:city', getByCity);
 
 /**
  * @swagger
  * /api/v1/lk/commuter/credential/{credential}:
  *   get:
  *     summary: Get commuter by phone number or email
+ *     tags: [Commuter]
  *     description: Retrieve a commuter's details by their phone number or email.
  *     parameters:
  *       - in: path
@@ -208,6 +216,6 @@ router.get('/city/:city', getCommutersByCity);
  *       404:
  *         description: Commuter not found
  */
-router.get('/credential/:credential', getCommuterByPhoneNumberOrEmail);
+router.get('/credential/:credential', getByPhoneNumberOrEmail);
 
 module.exports = router;

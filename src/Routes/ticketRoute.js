@@ -11,6 +11,7 @@ const router = express.Router();
  * /api/v1/lk/tickets/{id}:
  *   get:
  *     summary: Get ticket by ID
+ *     tags: [Ticket]
  *     description: Retrieve ticket details using its unique ID.
  *     parameters:
  *       - in: path
@@ -32,6 +33,7 @@ router.get("/:id", getTicketByTicketId);
  * /api/v1/lk/tickets/reservation/{reservationId}:
  *   get:
  *     summary: Get tickets by reservation ID
+ *     tags: [Ticket]
  *     description: Retrieve all tickets associated with a specific reservation ID.
  *     parameters:
  *       - in: path

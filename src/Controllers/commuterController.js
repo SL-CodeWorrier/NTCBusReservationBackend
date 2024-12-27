@@ -115,12 +115,12 @@ const getByPhoneNumberOrEmail = async (req, res) => {
 };
 
 module.exports = {
-    createCommuter,
-    getAllCommuters,
-    getCommuterById,
-    updateCommuterById,
-    deleteCommuterById,
-    getCommutersByProvince,
-    getCommutersByCity,
-    getCommuterByPhoneNumberOrEmail,
+    create,
+    getAll,
+    getById,
+    updateById,
+    deleteById,
+    getByProvince,
+    getByCity,
+    getByPhoneNumberOrEmail,
 };

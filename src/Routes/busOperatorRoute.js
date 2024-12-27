@@ -16,6 +16,7 @@ const router = express.Router();
  * /api/v1/lk/bus-operators:
  *   post:
  *     summary: Create a new bus operator
+ *     tags: [Bus Operator]
  *     description: Create a new bus operator with the provided data.
  *     requestBody:
  *       required: true
@@ -45,6 +46,7 @@ router.post('/', create);
  * /api/v1/lk/bus-operators:
  *   get:
  *     summary: Get all bus operators
+ *     tags: [Bus Operator]
  *     description: Retrieve a list of all bus operators.
  *     responses:
  *       200:
@@ -59,6 +61,7 @@ router.get('/', getAll);
  * /api/v1/lk/bus-operators/{id}:
  *   get:
  *     summary: Get a bus operator by ID
+ *     tags: [Bus Operator]
  *     description: Retrieve a bus operator's details by their ID.
  *     parameters:
  *       - in: path
@@ -80,6 +83,7 @@ router.get('/:id', getById);
  * /api/v1/lk/bus-operators/{id}:
  *   put:
  *     summary: Update a bus operator by ID
+ *     tags: [Bus Operator]
  *     description: Update a bus operator's information by their ID.
  *     parameters:
  *       - in: path
@@ -118,6 +122,7 @@ router.put('/:id', updateById);
  * /api/v1/lk/bus-operators/{id}:
  *   delete:
  *     summary: Delete a bus operator by ID
+ *     tags: [Bus Operator]
  *     description: Delete a bus operator from the database by their ID.
  *     parameters:
  *       - in: path
@@ -139,6 +144,7 @@ router.delete('/:id', deleteById);
  * /api/v1/lk/bus-operators/phone/{phoneNumber}:
  *   get:
  *     summary: Get a bus operator by phone number
+ *     tags: [Bus Operator]
  *     description: Retrieve a bus operator's details by their phone number.
  *     parameters:
  *       - in: path
@@ -160,6 +166,7 @@ router.get('/phone/:phoneNumber', getByPhoneNumber);
  * /api/v1/lk/bus-operators/user/{userId}:
  *   get:
  *     summary: Get a bus operator by user ID
+ *     tags: [Bus Operator]
  *     description: Retrieve a bus operator's details by their user ID.
  *     parameters:
  *       - in: path

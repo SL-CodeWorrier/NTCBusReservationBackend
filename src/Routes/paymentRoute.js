@@ -38,9 +38,6 @@ const {
  *               amountForOneSeat:
  *                 type: number
  *                 example: 150
- *               numberOfSeats:
- *                 type: number
- *                 example: 3
  *               commuter:
  *                 type: string
  *                 example: 647acbd5f99b70f34e12f123
